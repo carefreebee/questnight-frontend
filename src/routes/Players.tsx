@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
+import { ChevronDown } from "lucide-react";
 
 export default function Players() {
   const columns = [
@@ -42,7 +43,9 @@ export default function Players() {
                   {column.key === "actions" ? (
                     <Dropdown>
                       <DropdownTrigger>
-                        <Button variant="bordered">Actions</Button>
+                        <Button variant="bordered" endContent={<ChevronDown />}>
+                          Actions
+                        </Button>
                       </DropdownTrigger>
                       <DropdownMenu aria-label="Dynamic Actions">
                         <DropdownItem key="edit">Edit</DropdownItem>

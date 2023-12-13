@@ -1,8 +1,8 @@
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Button, Card, CardBody, Link } from "@nextui-org/react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center  gap-8 p-8">
+    <div className="flex flex-col items-center gap-8 p-8">
       Home
       <Card className="h-64 w-96 transform transition-transform hover:scale-110 hover:bg-gray-700">
         <Button className="h-64 w-96 bg-white">
@@ -27,11 +27,13 @@ export default function Home() {
           </Button>
         </Card>
         <Card className="h-32 w-64 transform transition-transform hover:scale-110 hover:bg-gray-700">
-          <Button className="h-32 w-64 bg-white">
-            <CardBody className="flex items-center justify-center font-bold">
-              <p className="text-2xl">Players</p>
-            </CardBody>
-          </Button>
+          <Link href="/players">
+            <Button className="h-32 w-64 bg-white">
+              <CardBody className="flex items-center justify-center font-bold">
+                <p className="text-2xl">Players</p>
+              </CardBody>
+            </Button>
+          </Link>
         </Card>
       </div>
     </div>
