@@ -1,3 +1,10 @@
+import { Button } from "@nextui-org/react";
+
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div className="flex flex-col gap-2 p-8">
+      Home
+      <Button>Test button from NextUI</Button>
+    </div>
+  );
 }
