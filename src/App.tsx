@@ -14,13 +14,15 @@ function App() {
 
   return (
     <NextUIProvider navigate={navigate}>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/games" element={<Games />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/players" element={<Players />} />
-      </Routes>
+      <div className="dark text-foreground bg-background min-h-screen">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/games" element={<Games />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/players" element={<Players />} />
+        </Routes>
+      </div>
     </NextUIProvider>
   );
 }
