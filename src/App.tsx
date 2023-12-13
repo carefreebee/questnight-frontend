@@ -14,7 +14,22 @@ function App() {
 
   return (
     <NextUIProvider navigate={navigate}>
-      <div className="dark text-foreground bg-background min-h-screen">
+      {/* animated purple background */}
+      <div className="area">
+        <ul className="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+      <div className="min-h-screen text-foreground dark">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
