@@ -29,7 +29,7 @@ function App() {
           <li></li>
         </ul>
       </div>
-      <div className="min-h-screen text-foreground dark">
+      <div className="h-screen overflow-y-scroll text-foreground dark">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
