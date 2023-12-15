@@ -6,7 +6,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center gap-8 p-8">
-      Home
       <Card className="h-64 w-96 transform transition-transform hover:scale-110 hover:bg-gray-700">
         <Button className="h-64 w-96" onClick={whatDisclosure.onOpen}>
           <CardBody className="flex items-center justify-center font-bold">
