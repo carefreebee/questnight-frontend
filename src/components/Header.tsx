@@ -23,7 +23,7 @@ export default function Header() {
         </NavbarItem>
         <NavbarItem isActive={pathname === "/games"}>
           <Link color={pathname !== "/games" ? "foreground" : undefined} href="/games">
-            Games
+            Game Library
           </Link>
         </NavbarItem>
         <NavbarItem isActive={pathname === "/events"}>
