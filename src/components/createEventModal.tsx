@@ -9,13 +9,67 @@ import {
   Select,
   SelectItem,
   useDisclosure,
+  type Selection,
 } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 
 export default function CreateEventModal({
   disclosure,
 }: {
   disclosure: ReturnType<typeof useDisclosure>;
 }) {
+  const [Events, setEvents] = useState([]);
+  const [games, setGames] = useState([]);
+
+  const [selectGame, setSelectGame] = useState<Selection>(new Set());
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  async function fetchEvents() {
+    const response = await fetch("http://localhost:5000/events");
+    const data = await response.json();
+    setEvents(data);
+  }
+
+  async function fetchGames() {
+    const response = await fetch("http://localhost:5000/games");
+    const data = await response.json();
+    setGames(data);
+  }
+  useEffect(() => {
+    fetchEvents();
+    fetchGames();
+    console.log(Events);
+  }, []);
+
+  async function createEvent() {
+    if (!startDate || !endDate || !Array.from(selectGame).length) {
+      alert("Please fill in all fields");
+      return;
+    }
+    disclosure.onOpenChange();
+
+    const reqBody = {
+      start_date: startDate,
+      end_date: endDate,
+      game_id: Array.from(selectGame)[0],
+    };
+    console.log(reqBody);
+
+    await fetch("http://localhost:5000/events/", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(reqBody),
+    });
+    fetchEvents();
+
+    setStartDate("");
+    setEndDate("");
+    setSelectGame(new Set());
+  }
+
   return (
     <>
       <Modal
@@ -34,10 +88,11 @@ export default function CreateEventModal({
                       labelPlacement="outside"
                       label="Pick a Game"
                       placeholder="Select a game"
+                      onSelectionChange={setSelectGame}
                     >
-                      <SelectItem key="game 1">game 1</SelectItem>
-                      <SelectItem key="game 2">game 2</SelectItem>
-                      <SelectItem key="game 3">game 3</SelectItem>
+                      {games.map((game) => (
+                        <SelectItem key={game.game_id}>{game.title}</SelectItem>
+                      ))}
                     </Select>
                   </div>
                   <div>
@@ -46,8 +101,10 @@ export default function CreateEventModal({
                       label="Start Date"
                       placeholder="Enter Start Date"
                       type="date"
-                      name="name"
+                      name="start_date"
                       variant="bordered"
+                      value={startDate}
+                      onValueChange={setStartDate}
                       labelPlacement="outside"
                       size="lg"
                     />
@@ -56,7 +113,9 @@ export default function CreateEventModal({
                       label="End Date"
                       placeholder="Enter Start Date"
                       type="date"
-                      name="name"
+                      name="end_date"
+                      value={endDate}
+                      onValueChange={setEndDate}
                       variant="bordered"
                       labelPlacement="outside"
                       size="lg"
@@ -68,8 +127,13 @@ export default function CreateEventModal({
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  GO!
+                <Button
+                  color="primary"
+                  onPress={() => {
+                    createEvent();
+                  }}
+                >
+                  Create Event
                 </Button>
               </ModalFooter>
             </>
