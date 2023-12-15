@@ -94,7 +94,7 @@ export default function Games() {
 
   return (
     <div className="flex flex-col items-center p-8">
-      <Button onClick={() => onOpen()} className="mb-5" color="primary">
+      <Button onClick={() => onOpen()} className="mb-5" color="primary" size="lg">
         Add a Game
       </Button>
 
