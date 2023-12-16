@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import Header from "~/components/Header";
 
+import EventParticipants from "~/routes/EventParticipants";
 import Events from "~/routes/Events";
 import Games from "~/routes/Games";
 import Home from "~/routes/Home";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/games" element={<Games />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<EventParticipants />} />
           <Route path="/players" element={<Players />} />
         </Routes>
       </div>

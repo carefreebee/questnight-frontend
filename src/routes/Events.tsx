@@ -6,6 +6,7 @@ import {
   CardHeader,
   Divider,
   Input,
+  Link,
   Modal,
   ModalBody,
   ModalContent,
@@ -16,12 +17,13 @@ import {
   useDisclosure,
   type Selection,
 } from "@nextui-org/react";
+import { format } from "date-fns";
 import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Events() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [Events, setEvents] = useState([]);
+  const [currentEvents, setEvents] = useState([]);
   const [games, setGames] = useState([]);
   const [players, setPlayers] = useState([]);
 
@@ -53,6 +55,16 @@ export default function Events() {
   const [endDate, setEndDate] = useState("");
   const [selectPlayer, setSelectPlayer] = useState<Selection>(new Set());
   const [selectedEventId, setSelectedEventId] = useState(null);
+
+  useEffect(() => {
+    if (!selectedEventId) return;
+    const index = currentEvents.findIndex((event) => event.event_id === selectedEventId);
+
+    setStartDate(format(new Date(currentEvents[index].start_date), "yyyy-MM-dd"));
+    setEndDate(format(new Date(currentEvents[index].end_date), "yyyy-MM-dd"));
+    setSelectGame(new Set([currentEvents[index].game_id?.toString()]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedEventId]);
 
   async function updateEvent() {
     if (
@@ -127,14 +139,19 @@ export default function Events() {
         </CardHeader>
         <Divider />
         <CardBody>
-          <div className="flex items-center justify-center gap-8 p-8">
-            <p>START DATE: {startDate}</p>
-            <p>END DATE: {endDate}</p>
+          <div className="flex flex-col items-center justify-center gap-4 p-8">
+            <div className="flex gap-6">
+              <p>Start date: {startDate}</p>
+              <p>End date: {endDate}</p>
+            </div>
+            {event.winner_name && <p>Winner: {event.winner_name}</p>}
           </div>
         </CardBody>
         <Divider />
         <CardFooter className="flex justify-around">
-          <Button color="primary">View Participants</Button>
+          <Button color="primary" as={Link} href={`/events/${event.event_id}`}>
+            View Participants
+          </Button>
           <Button
             onClick={() => {
               setSelectedEventId(event.event_id);
@@ -150,11 +167,11 @@ export default function Events() {
 
   return (
     <div className="flex flex-wrap justify-center gap-8 p-8">
-      {Events.map((event) => (
-        <EventDetails key={event.id} event={event} />
+      {currentEvents.map((event, i) => (
+        <EventDetails key={i} event={event} />
       ))}
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
+      <Modal hideCloseButton isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -167,6 +184,7 @@ export default function Events() {
                       label="Pick a Game"
                       placeholder="Select a game"
                       onSelectionChange={setSelectGame}
+                      selectedKeys={selectGame}
                     >
                       {games.map((game) => (
                         <SelectItem key={game.game_id}>{game.title}</SelectItem>
@@ -212,7 +230,14 @@ export default function Events() {
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={() => {
+                    setSelectedEventId(null);
+                    onClose();
+                  }}
+                >
                   Close
                 </Button>
                 <Button
