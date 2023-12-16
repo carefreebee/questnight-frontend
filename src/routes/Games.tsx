@@ -1,7 +1,10 @@
-import { Button } from "@nextui-org/button";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Divider } from "@nextui-org/divider";
 import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Divider,
   Input,
   Modal,
   ModalBody,
@@ -90,7 +93,6 @@ export default function Games() {
       console.error("Failed to delete the game");
     }
   };
-
 
   return (
     <div className="flex flex-col items-center p-8">

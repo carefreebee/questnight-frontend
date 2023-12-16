@@ -1,7 +1,10 @@
-import { Button } from "@nextui-org/button";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Divider } from "@nextui-org/divider";
 import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Divider,
   Input,
   Modal,
   ModalBody,
@@ -43,7 +46,6 @@ export default function Events() {
     fetchEvents();
     fetchGames();
     fetchPlayers();
-    console.log(players);
   }, []);
 
   const [selectGame, setSelectGame] = useState<Selection>(new Set());
@@ -136,7 +138,7 @@ export default function Events() {
           <Button
             onClick={() => {
               setSelectedEventId(event.event_id);
-              onOpenChange();
+              onOpen();
             }}
           >
             Update Event

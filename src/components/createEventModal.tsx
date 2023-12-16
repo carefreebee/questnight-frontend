@@ -18,18 +18,11 @@ export default function CreateEventModal({
 }: {
   disclosure: ReturnType<typeof useDisclosure>;
 }) {
-  const [Events, setEvents] = useState([]);
   const [games, setGames] = useState([]);
 
   const [selectGame, setSelectGame] = useState<Selection>(new Set());
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
-  async function fetchEvents() {
-    const response = await fetch("http://localhost:5000/events");
-    const data = await response.json();
-    setEvents(data);
-  }
 
   async function fetchGames() {
     const response = await fetch("http://localhost:5000/games");
@@ -37,9 +30,7 @@ export default function CreateEventModal({
     setGames(data);
   }
   useEffect(() => {
-    fetchEvents();
     fetchGames();
-    console.log(Events);
   }, []);
 
   async function createEvent() {
@@ -63,7 +54,6 @@ export default function CreateEventModal({
       method: "POST",
       body: JSON.stringify(reqBody),
     });
-    fetchEvents();
 
     setStartDate("");
     setEndDate("");
