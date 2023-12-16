@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-[90vh] flex-col items-center justify-center gap-4">
-      <h1 className="flex items-center gap-3 rounded-2xl bg-indigo-700 bg-opacity-70 p-6 px-8 text-4xl font-black drop-shadow-[0_0_16px_rgba(255,255,255,0.1)]">
+      <h1 className="flex items-center gap-3 pb-2 text-4xl font-black text-indigo-50 drop-shadow-[4px_4px_0_rgba(99,102,241,1.0)]">
         <Swords size={42} />
         QuestNight
       </h1>
