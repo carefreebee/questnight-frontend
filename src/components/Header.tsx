@@ -1,5 +1,6 @@
 // import React from "react";
 import { Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
+import { Swords } from "lucide-react";
 import { useLocation } from "react-router-dom";
 // import { AcmeLogo } from "./AcmeLogo.jsx";
 
@@ -7,7 +8,8 @@ export default function Header() {
   const { pathname } = useLocation();
   return (
     <Navbar isBordered>
-      <NavbarBrand>
+      <NavbarBrand className="gap-1">
+        <Swords />
         <p className="font-bold text-inherit">QuestNight</p>
       </NavbarBrand>
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
